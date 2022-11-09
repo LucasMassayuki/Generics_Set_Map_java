@@ -1,27 +1,37 @@
 package application;
 
-import java.util.Scanner;
-import services.PrintService;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Product;
+import services.CalculationService;
 
 public class Program {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		List<Product> list = new ArrayList<>();
 
-		PrintService<String> ps = new PrintService<>();
+		String path = "C:\\temp\\in.txt";
 
-		System.out.print("How many values? ");
-		int n = sc.nextInt();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {// abrindo a arquivo
 
-		for (int i = 0; i < n; i++) {
-			String value = sc.next();
-			ps.addValue(value);//vai add os valores digitados
+			String line = br.readLine();// ler todas as linhas do arquivo
+			while (line != null) {
+				String[] fields = line.split(",");
+				list.add(new Product(fields[0], Double.parseDouble(fields[1])));// guardando na lista de inteiros do arquivo
+				line = br.readLine();
+			}
+
+			Product x = CalculationService.max(list);//.max() vai encontrar o maior número da lista
+			System.out.println("Most expensive:");
+			System.out.println(x);
+
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
 		}
-
-		ps.print();//vai imprimir os números digitados
-		String x = ps.first();//ps.first() vai mostrar o primeiro "número" digitado
-		System.out.println("First: " + x);
-		sc.close();
 
 	}
 
