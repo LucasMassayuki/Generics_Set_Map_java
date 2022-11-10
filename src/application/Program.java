@@ -1,25 +1,32 @@
 package application;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Program {
-//Com tipos curinga podemos fazer métodos 
-	// que recebem um genérico de "qualquer tipo":
-	public static void main(String[] args) {
-		List<Integer> myInts = Arrays.asList(5, 2, 10);
-		printList(myInts);
-	}
+import entities.Circle;
+import entities.Rectangle;
+import entities.Shape;
 
-	public static void printList(List<?> list) {
-		for (Object obj : list) {
-			System.out.println(obj);
+public class Program {
+
+	public static void main(String[] args) {
+
+		List<Shape> myShapes = new ArrayList<>();//criando uma lista de shape
+		myShapes.add(new Rectangle(3.0, 2.0));
+		myShapes.add(new Circle(2.0));
+
+		List<Circle> myCircles = new ArrayList<>();//lista específico de circle 
+		myCircles.add(new Circle(2.0));
+		myCircles.add(new Circle(3.0));
+
+		System.out.println("Total area: " + totalArea(myCircles));//mostrar o total da area
+	}
+     //essa lista pode ser de shape ou qualquer subtipo de shape "<? extends Shape>"
+	public static double totalArea(List<? extends Shape> list) {
+		double sum = 0.0;
+		for (Shape s : list) { // vai acumular cada soma da area
+			sum += s.area();
 		}
-		
-	/*public static void main(String[] args) { Porém não é possível adicionar dados a uma 
-		List<?> list = new ArrayList<Integer>(); coleção de tipo curinga
-		list.add(3); // erro de compilação
-		}*/
-	//O compilador não sabe qual é o tipo específico do qual a lista foi instanciada
+		return sum;
 	}
 }
