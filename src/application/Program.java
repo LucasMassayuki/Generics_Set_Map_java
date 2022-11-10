@@ -1,15 +1,25 @@
 package application;
 
-import entities.Client;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Program {
 	public static void main(String[] args) {
-		//hashCode mostra se um Objeto é igual a outro
-		Client c1 = new Client("Maria", "maria@gmail.com");
-		Client c2 = new Client("Maria", "alex@gmail.com");
+		//Set<String> set = new HashSet<>();//HashSet não garante a ordem 
+		//Set<String> set = new TreeSet<>();//TreeSet imprimi em ordem alfabética
+		Set<String> set = new LinkedHashSet<>();//Mantem na ordem com as ordem inseridos 
 		
-		System.out.println(c1.hashCode());
-		System.out.println(c2.hashCode());
-		System.out.println(c1.equals(c2));//.equals() mostra se é igual com true/false
+		set.add("TV");
+		set.add("Notebook");
+		set.add("Tablet");
+		
+		//System.out.println(set.contains("Notebook"));//.contains() se existe um elemento dentro do " "
+		
+		//set.remove("Tablet"); remove da lista 
+		set.removeIf(x -> x.charAt(0) == 'T');//remove da lista o quem tem 'T'
+		
+		for (String p : set) {//vai imprimir os elementos dos conjuntos "set.add()"
+			System.out.println(p);
+		}
 	}
 }
