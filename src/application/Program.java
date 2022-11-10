@@ -1,25 +1,27 @@
 package application;
 
-import java.util.LinkedHashSet;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Program {
 	public static void main(String[] args) {
-		//Set<String> set = new HashSet<>();//HashSet não garante a ordem 
-		//Set<String> set = new TreeSet<>();//TreeSet imprimi em ordem alfabética
-		Set<String> set = new LinkedHashSet<>();//Mantem na ordem com as ordem inseridos 
+		Set<Integer> a = new TreeSet<>(Arrays.asList(0, 2, 4, 5, 6, 8, 10));
+		Set<Integer> b = new TreeSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
 		
-		set.add("TV");
-		set.add("Notebook");
-		set.add("Tablet");
+		//union
+		Set<Integer> c = new TreeSet<>(a);
+		c.addAll(b);//fazendo a união do conjundo c com b
+		System.out.println(c);
 		
-		//System.out.println(set.contains("Notebook"));//.contains() se existe um elemento dentro do " "
+		//intersection
+		Set<Integer> d = new TreeSet<>(a);
+		d.retainAll(b);
+		System.out.println(d);
 		
-		//set.remove("Tablet"); remove da lista 
-		set.removeIf(x -> x.charAt(0) == 'T');//remove da lista o quem tem 'T'
-		
-		for (String p : set) {//vai imprimir os elementos dos conjuntos "set.add()"
-			System.out.println(p);
-		}
+		//difference
+		Set<Integer> e = new TreeSet<>(a);
+		e.removeAll(b);
+		System.out.println(e);
 	}
 }
