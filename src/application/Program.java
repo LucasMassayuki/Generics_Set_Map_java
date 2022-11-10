@@ -1,32 +1,31 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import entities.Circle;
-import entities.Rectangle;
-import entities.Shape;
-
 public class Program {
-
 	public static void main(String[] args) {
-
-		List<Shape> myShapes = new ArrayList<>();//criando uma lista de shape
-		myShapes.add(new Rectangle(3.0, 2.0));
-		myShapes.add(new Circle(2.0));
-
-		List<Circle> myCircles = new ArrayList<>();//lista específico de circle 
-		myCircles.add(new Circle(2.0));
-		myCircles.add(new Circle(3.0));
-
-		System.out.println("Total area: " + totalArea(myCircles));//mostrar o total da area
+		List<Integer> myInts = Arrays.asList(1, 2, 3, 4);
+		List<Double> myDoubles = Arrays.asList(3.14, 6.28);
+		List<Object> myObjs = new ArrayList<Object>();
+		
+		copy(myInts, myObjs);
+		printList(myObjs);
+		copy(myDoubles, myObjs);
+		printList(myObjs);
 	}
-     //essa lista pode ser de shape ou qualquer subtipo de shape "<? extends Shape>"
-	public static double totalArea(List<? extends Shape> list) {
-		double sum = 0.0;
-		for (Shape s : list) { // vai acumular cada soma da area
-			sum += s.area();
+                        //qualquer tipo que extends number //Lista de destino é qualquer ripo de super Number 
+	public static void copy(List<? extends Number> source, List<? super Number> destiny) {
+		for (Number number : source) {//para cada number na lista de origin "source" 
+			destiny.add(number);//add na lista destiny
 		}
-		return sum;
+	}
+	//Metodo generics para imprimir a lista 
+	public static void printList(List<?> list) {
+		for (Object obj : list) {//Lista de Object (qualquer tipo)
+			System.out.print(obj + " ");
+		}
+		System.out.println();
 	}
 }
