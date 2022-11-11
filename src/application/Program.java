@@ -1,27 +1,44 @@
 package application;
 
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
+
+import entities.LogEntry;
 
 public class Program {
 	public static void main(String[] args) {
-		Set<Integer> a = new TreeSet<>(Arrays.asList(0, 2, 4, 5, 6, 8, 10));
-		Set<Integer> b = new TreeSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
+		Scanner sc = new Scanner(System.in);
 		
-		//union
-		Set<Integer> c = new TreeSet<>(a);
-		c.addAll(b);//fazendo a união do conjundo c com b
-		System.out.println(c);
+		System.out.print("Enter file full path: ");
+		String path = sc.nextLine();
 		
-		//intersection
-		Set<Integer> d = new TreeSet<>(a);
-		d.retainAll(b);
-		System.out.println(d);
+		try(BufferedReader br = new BufferedReader(new FileReader(path))){
+			
+			Set<LogEntry> set = new HashSet<>();
+			
+			String line = br.readLine();
+			while (line != null) {
+				
+				String[] fields = line.split(" ");//separar o String com .split()
+				String username = fields[0];//username na posição 1 
+				Date moment = Date.from(Instant.parse(fields[1]));//moment na posição 2 
+				
+				set.add(new LogEntry(username, moment));
+				
+				line = br.readLine();
+			}
+			System.out.println("Total users: " + set.size());
+			
+		}catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 		
-		//difference
-		Set<Integer> e = new TreeSet<>(a);
-		e.removeAll(b);
-		System.out.println(e);
+		sc.close();
 	}
 }
