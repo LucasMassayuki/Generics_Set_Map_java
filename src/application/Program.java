@@ -1,33 +1,26 @@
 package application;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
+
+import entities.Product;
 
 public class Program {
 
 	public static void main(String[] args) {
+
+		Map<Product, Double> stock = new HashMap<>();
 		
-		Map<String, String> cookies = new TreeMap<>();
+		Product p1 = new Product("Tv", 900.0);
+		Product p2 = new Product("Notebook", 1200.0);
+		Product p3 = new Product("Tablet", 400.0);
 		
-		cookies.put("username", "Maria");//.put() para inserir
-		cookies.put("email", "maria@gmail.com");
-		cookies.put("phone", "99711122");
+		stock.put(p1, 10000.0);
+		stock.put(p2, 20000.0);
+		stock.put(p3, 15000.0);
 		
-		cookies.remove("email");//removendo com remove()
-		cookies.put("phone", "99771133");//é o novo valor que vai ser imprimido
-		//conteinsKey() mostra se existe 
-		System.out.println("Conteins 'phone' key: " + cookies.containsKey("phone"));
-		//mostra o 'valor' 
-		System.out.println("Phone number: " + cookies.get("phone"));
-		//quando não existe volta null
-		System.out.println("Email: " + cookies.get("emial"));
-		//Para ver o tamanho do elemento
-		System.out.println("Size: " + cookies.size());
-		
-		System.out.println("ALL COOKIES:");
-		for (String key : cookies.keySet()) {//pegando as cheves de forma de Set
-			System.out.println(key + ": " + cookies.get(key));//passando o valor com .get(key)
-		}
+		Product ps = new Product("Tv", 900.0);
+		System.out.println("Contains 'ps' key: " + stock.containsKey(ps));
 	}
 
 }
